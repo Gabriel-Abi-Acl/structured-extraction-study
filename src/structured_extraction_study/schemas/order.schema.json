@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/order-record.json",
+  "title": "OrderRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "customer_name",
+    "email",
+    "phone",
+    "document_id",
+    "order_date",
+    "amount_brl",
+    "city",
+    "item"
+  ],
+  "properties": {
+    "customer_name": {
+      "type": ["string", "null"]
+    },
+    "email": {
+      "type": ["string", "null"]
+    },
+    "phone": {
+      "type": ["string", "null"]
+    },
+    "document_id": {
+      "type": ["string", "null"],
+      "description": "Fictional CPF-like identifier. Not a real document."
+    },
+    "order_date": {
+      "type": ["string", "null"]
+    },
+    "amount_brl": {
+      "type": ["string", "null"]
+    },
+    "city": {
+      "type": ["string", "null"]
+    },
+    "item": {
+      "type": ["string", "null"]
+    }
+  }
+}

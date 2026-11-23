@@ -1,0 +1,43 @@
+[project]
+name = "structured-extraction-study"
+version = "0.1.0"
+description = "Comparative study of structured extraction on short Portuguese texts."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "jsonschema>=4.23",
+  "pydantic>=2.10",
+]
+
+[project.optional-dependencies]
+openai = ["openai>=1.55"]
+anthropic = ["anthropic>=0.40"]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3",
+  "ruff>=0.8",
+]
+
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/structured_extraction_study/schemas/order.schema.json" = "structured_extraction_study/schemas/order.schema.json"
+"src/structured_extraction_study/fixtures/placeholder.json" = "structured_extraction_study/fixtures/placeholder.json"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["structured_extraction_study"]
