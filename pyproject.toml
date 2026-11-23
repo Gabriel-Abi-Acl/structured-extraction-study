@@ -13,6 +13,9 @@ dependencies = [
 openai = ["openai>=1.55"]
 anthropic = ["anthropic>=0.40"]
 
+[project.scripts]
+evaluate-extraction = "structured_extraction_study.evaluation:main"
+
 [dependency-groups]
 dev = [
   "pytest>=8.3",

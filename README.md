@@ -1,6 +1,6 @@
 # Estudo de extração estruturada
 
-Estudo técnico sobre extração de campos em textos curtos em português (pedidos, notas, chamados e endereços fictícios). O pacote traz o contrato, o baseline, a medição e o dataset rotulado para rodar offline. Números de qualidade, latência de API e custo ficam para os PRs seguintes, quando a avaliação e a chamada real existirem.
+Estudo técnico sobre extração de campos em textos curtos em português (pedidos, notas, chamados e endereços fictícios). O pacote traz o contrato, o baseline, a medição, o dataset rotulado e o harness offline. Números de modelo, latência de API e custo ficam para o PR4.
 
 ## Objetivo
 
@@ -16,9 +16,9 @@ O estudo vizinho de guardrails trata estratégias de contenção. Aqui a pergunt
 
 Em texto curto e rotulado, o baseline deve acertar os campos com rótulo estável e perder quando o fraseado muda. O LLM com esquema deve cobrir melhor o texto livre. O reparo com orçamento deve recuperar JSON inválido ou fora do esquema, com um teto de chamadas. Um valor factualmente errado que ainda valida permanece erro de campo e não dispara nova tentativa.
 
-Isso é o que o desenho permite medir. Este repositório ainda não traz essa medição.
+Isso é o que o desenho permite medir. O harness offline percorre esse desenho com saídas scriptadas; o número que sai dali é checagem de pipeline, não resultado de modelo.
 
-## Métricas planejadas
+## Métricas
 
 | Métrica | Onde está | Leitura |
 | --- | --- | --- |
@@ -54,6 +54,8 @@ uv run ruff check .
 uv run ruff format --check .
 uv run pytest
 ```
+
+A avaliação offline está na seção [Avaliação offline](#avaliação-offline).
 
 A configuração vem do ambiente do processo. O pacote não lê arquivo `.env`. O exemplo versionado deixa todas as chaves vazias:
 
@@ -106,11 +108,35 @@ Limitações:
 - O ouro não corrige grafia. Cidade escrita sem acento continua sem acento.
 - O vínculo do loader olha o texto e os normalizadores deste pacote. Não há outra fonte para o rótulo.
 
+## Avaliação offline
+
+O comando `evaluate-extraction` percorre o dataset rotulado nos três extratores e grava a medição num diretório escolhido. O padrão é offline: `RegexExtractor` e dois `LLMExtractor` com `ScriptedLLMClient` (uma chamada, e outra com o orçamento de reparo). Não há chamada de rede.
+
+```bash
+uv run evaluate-extraction --output-dir eval-out --scenario mix --repair-attempts 2
+```
+
+`--scenario` escolhe a string fixa de cada linha: `valid`, `malformed`, `partially_wrong` ou `mix`. Em `mix`, a primeira resposta é o JSON inválido da linha e, se o reparo pedir outra, a seguinte é o JSON do ouro. Sem `--scenario`, o comando usa `mix`. `--repair-attempts` é o orçamento de `llm_scripted_repair` e inclui a primeira chamada. Sem essa flag, vale `REPAIR_MAX_ATTEMPTS` (padrão 2). `llm_scripted` fica em uma chamada. `--dataset` troca o JSONL; o padrão é `data/eval/texts.v1.jsonl`.
+
+O diretório recebe três arquivos:
+
+| Arquivo | Conteúdo |
+| --- | --- |
+| `records.jsonl` | Uma linha por texto e por sistema |
+| `summary.json` | Taxas por sistema e por categoria |
+| `report.md` | As mesmas taxas em tabela |
+
+As taxas são correspondência exata e normalizada por campo, correspondência exata do registro, JSON válido, conformidade ao esquema, média de tentativas e latência. A média de tentativas é a média de `ExtractionResult.attempts` e inclui a primeira chamada. A latência é o tempo de parede medido dentro de `extract` e fica marcada como `offline_wall_clock`. Não é latência de API. Erro de execução entra numa contagem à parte e sai do denominador. JSON inválido ou fora do esquema continua nas taxas.
+
+Números produzidos com backend scriptado, ou com qualquer cliente falso, são checagem de pipeline, não resultado de modelo. Este README não publica essas medidas.
+
+`--allow-live` não executa o provedor. Sem `OPENAI_API_KEY` e sem `ANTHROPIC_API_KEY` no ambiente, o comando termina com código 2 e avisa que nenhum pedido foi enviado. Com uma dessas chaves presente, também termina com código 2: a chamada ao vivo não está implementada neste comando, e nenhum pedido é enviado.
+
 ## Roadmap
 
 - PR2: dataset sintético rotulado (`data/eval/texts.v1.jsonl`).
-- PR3: avaliação offline dos três extratores nesse dataset.
-- PR4: experimentos com provedor real, latência, custo e relatório.
+- PR3: harness offline (`evaluate-extraction`) no dataset v1, com backend scriptado.
+- PR4: experimentos com provedor real, latência de API, custo e relatório.
 
 ## Layout
 
@@ -122,6 +148,7 @@ src/structured_extraction_study/
   llm/              cliente scriptado e clientes ao vivo
   fixtures/         oito textos de exemplo
   dataset.py        leitura e validação do JSONL
+  evaluation.py     harness offline (`evaluate-extraction`)
   normalize.py
   metrics.py
   config.py
