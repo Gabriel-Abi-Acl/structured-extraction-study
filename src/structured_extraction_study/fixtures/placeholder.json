@@ -1,0 +1,122 @@
+[
+  {
+    "id": "fx-001",
+    "kind": "order",
+    "text": "Cliente: Ana Souza\nE-mail: ana.souza@example.com\nTelefone: (11) 98888-0001\nCPF: 123.456.789-09\nData: 15/03/2026\nValor: R$ 1.250,00\nCidade: Campinas\nItem: Teclado mecânico",
+    "gold": {
+      "customer_name": "Ana Souza",
+      "email": "ana.souza@example.com",
+      "phone": "11988880001",
+      "document_id": "12345678909",
+      "order_date": "2026-03-15",
+      "amount_brl": "1250.00",
+      "city": "Campinas",
+      "item": "Teclado mecânico"
+    }
+  },
+  {
+    "id": "fx-002",
+    "kind": "invoice",
+    "text": "Nome: Bruno Lima\nE-mail: bruno.lima@example.com\nTelefone: 21977770002\nCPF: 98765432100\nData: 2026-01-08\nValor: R$ 89,90\nCidade: Niterói\nItem: Cabo HDMI",
+    "gold": {
+      "customer_name": "Bruno Lima",
+      "email": "bruno.lima@example.com",
+      "phone": "21977770002",
+      "document_id": "98765432100",
+      "order_date": "2026-01-08",
+      "amount_brl": "89.90",
+      "city": "Niterói",
+      "item": "Cabo HDMI"
+    }
+  },
+  {
+    "id": "fx-003",
+    "kind": "ticket",
+    "text": "Cliente: Carla Nunes\nE-mail: carla.nunes@example.com\nTelefone: +55 31 98888-0003\nCPF: 111.222.333-44\nData: 02.04.2026\nValor: 320,00\nCidade: Belo Horizonte\nAssunto: Troca de fonte",
+    "gold": {
+      "customer_name": "Carla Nunes",
+      "email": "carla.nunes@example.com",
+      "phone": "31988880003",
+      "document_id": "11122233344",
+      "order_date": "2026-04-02",
+      "amount_brl": "320.00",
+      "city": "Belo Horizonte",
+      "item": "Troca de fonte"
+    }
+  },
+  {
+    "id": "fx-004",
+    "kind": "address",
+    "text": "Cliente: Diego Alves\nTelefone: (41) 3333-0004\nData: 20-05-2026\nValor: R$ 2.000,50\nCidade: Curitiba\nItem: Frete",
+    "gold": {
+      "customer_name": "Diego Alves",
+      "email": null,
+      "phone": "4133330004",
+      "document_id": null,
+      "order_date": "2026-05-20",
+      "amount_brl": "2000.50",
+      "city": "Curitiba",
+      "item": "Frete"
+    }
+  },
+  {
+    "id": "fx-005",
+    "kind": "order",
+    "text": "E-mail: elisa.martins@example.com\nTelefone: (51) 98888-0005\nCPF: 555.666.777-88\nData: 01/06/2026\nValor: R$ 10,00\nCidade: Porto Alegre\nItem: Mouse",
+    "gold": {
+      "customer_name": null,
+      "email": "elisa.martins@example.com",
+      "phone": "51988880005",
+      "document_id": "55566677788",
+      "order_date": "2026-06-01",
+      "amount_brl": "10.00",
+      "city": "Porto Alegre",
+      "item": "Mouse"
+    }
+  },
+  {
+    "id": "fx-006",
+    "kind": "invoice",
+    "text": "Nome: Fabio Costa\nE-mail: fabio.costa@example.com\nTelefone: 11966660006\nCPF: 000.111.222-33\nData: 7/7/2026\nValor: R$ 15.999,99\nCidade: Sao Paulo\nProduto: Monitor",
+    "gold": {
+      "customer_name": "Fabio Costa",
+      "email": "fabio.costa@example.com",
+      "phone": "11966660006",
+      "document_id": "00011122233",
+      "order_date": "2026-07-07",
+      "amount_brl": "15999.99",
+      "city": "Sao Paulo",
+      "item": "Monitor"
+    }
+  },
+  {
+    "id": "fx-007",
+    "kind": "order",
+    "text": "Cliente: Helena Dias\nE-mail: helena.dias@example.com\nTelefone: +55 (85) 98888-0007\nCPF: 12345678900\nData: 30/11/2026\nValor: R$ 0,50\nCidade: Fortaleza\nItem: Adesivo",
+    "gold": {
+      "customer_name": "Helena Dias",
+      "email": "helena.dias@example.com",
+      "phone": "85988880007",
+      "document_id": "12345678900",
+      "order_date": "2026-11-30",
+      "amount_brl": "0.50",
+      "city": "Fortaleza",
+      "item": "Adesivo"
+    }
+  },
+  {
+    "id": "fx-008",
+    "kind": "ticket",
+    "text": "Cliente: Igor Pacheco\nE-mail: igor.pacheco@example.com\nTelefone: (62) 98888-0008\nCidade: Goiania\nAssunto: Atraso na entrega",
+    "gold": {
+      "customer_name": "Igor Pacheco",
+      "email": "igor.pacheco@example.com",
+      "phone": "62988880008",
+      "document_id": null,
+      "order_date": null,
+      "amount_brl": null,
+      "city": "Goiania",
+      "item": "Atraso na entrega"
+    }
+  }
+]
