@@ -1,4 +1,4 @@
-"""Fixture mínima para travar o baseline. O conjunto rotulado maior fica no PR2."""
+"""Fixture mínima para travar o baseline. O conjunto v1 entra por `load_eval_texts`."""
 
 import json
 from pathlib import Path
